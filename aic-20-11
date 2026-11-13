@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -266,4 +267,4 @@
                         <div class="grid grid-cols-4 gap-2">
                             <button onclick="setFrameStyle('classic', this)" class="frame-btn ring-2 ring-rose-500 bg-rose-50 p-2 rounded-xl border border-slate-200 text-center cursor-pointer transition-all">
                                 <div class="w-6 h-6 rounded-md mx-auto mb-1 bg-white border border-slate-300"></div>
-                                <span class="text-[11
+                                <span class="
