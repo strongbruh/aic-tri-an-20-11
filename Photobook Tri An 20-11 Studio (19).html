@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photobook Tri Ân Thầy Cô - AIC THPT Đầm Hà</title>
+    <!-- Tải Tailwind CSS để tối ưu giao diện Responsive đẹp mắt -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font chữ Inter & Font viết tay mềm mại cho chủ đề 20/11 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .font-handwriting {
+            font-family: 'Patrick Hand', cursive;
+        }
+        /* Hiệu ứng chớp đèn Flash khi chụp ảnh */
+        @keyframes flashAnim {
+            0% { opacity: 0.95; }
+            100% { opacity: 0; }
+        }
+        .flash-effect {
+            animation: flashAnim 0.45s ease-out forwards;
+        }
+        /* Hiệu ứng nảy số đếm ngược */
+        @keyframes pulseScale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+        }
+        .countdown-pulse {
+            animation: pulseScale 0.8s infinite;
+        }
+        /* Hiệu ứng mở App toàn màn hình chuẩn iOS/Android */
+        .app-modal {
+            transform-origin: center center;
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+            will-change: transform, opacity;
+        }
+        .app-modal-closed {
+            opacity: 0;
+            transform: scale(0.88) translateY(24px);
+            pointer-events: none;
+            display: none !important;
+        }
+        .app-modal-open {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+            display: flex !important;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-rose-50 via-amber-50 to-orange-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- ===================================================================== -->
+    <!-- PHẦN 1: MÀN HÌNH CHÀO MỪNG (INTRO / OVERVIEW PAGE)                    -->
+    <!-- ===================================================================== -->
+    <section id="intro-section" class="flex-1 flex flex-col justify-between transition-opacity duration-500">
+        <!-- Thanh Header thương hiệu -->
+        <header class="w-full max-w-6xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-800 to-slate-900 flex items-center justify-center text-white font-extrabold text-xs shadow-md shadow-emerald-500/20 overflow-hidden border border-emerald-500/40 shrink-0">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=300&auto=format&fit=crop" alt="AIC Circuit Logo" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <span class="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 block leading-tight">AIC - Câu lạc bộ AI Trường Trung học Phổ thông Đầm Hà</span>
+                    <span class="text-xs font-semibold text-rose-600">Products by Luu Trong with AIC</span>
+                </div>
+            </div>
+            <span class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/85 backdrop-blur text-emerald-700 border border-emerald-200 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                100% Xử lý Local - Bảo mật tuyệt đối
+            </span>
+        </header>
+
+        <!-- Nội dung chính (Hero Section) -->
+        <main class="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-12 flex flex-col lg:flex-row items-center gap-10">
+            <!-- Cột trái: Lời chào mừng & Nút hành động -->
+            <div class="flex-1 text-center lg:text-left space-y-6">
+                <div class="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-rose-100 to-amber-100 text-rose-700 font-bold text-sm shadow-sm border border-rose-200/50">
+                    ✨ Tri ân Thầy Cô Ngày Nhà Giáo Việt Nam 20/11 ✨
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight">
+                    Lưu giữ khoảnh khắc <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-rose-500 to-amber-500">
+                        Tri ân các thầy cô giáo
+                    </span>
+                </h1>
+                <p class="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                    Không gian <strong>Photobook Online</strong> chính thức của Câu lạc bộ AI THPT Đầm Hà. Chụp ảnh trực tiếp, áp dụng bộ lọc màu nghệ thuật và dán sticker dễ thương tặng các thầy cô nhân dịp 20/11!
+                </p>
+
+                <!-- Nút chuyển sang giao diện Photobook -->
+                <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <button onclick="enterStudio()" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-rose-500 to-amber-500 hover:opacity-95 text-white font-bold text-lg shadow-xl shadow-rose-500/25 transform hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-2.5 cursor-pointer">
+                        <span>📸</span>
+                        <span>Mở App Chụp Photobook</span>
+                    </button>
+                </div>
+
+                <!-- Các thẻ tính năng nổi bật -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6">
+                    <div class="bg-white/90 backdrop-blur p-3.5 rounded-2xl border border-rose-100 shadow-sm text-center">
+                        <div class="text-2xl mb-1">🎨</div>
+                        <h3 class="font-bold text-sm text-slate-800">Bộ màu Vintage</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Natural, Nắng ấm, Retro</p>
+                    </div>
+                    <div class="bg-white/90 backdrop-blur p-3.5 rounded-2xl border border-rose-100 shadow-sm text-center">
+                        <div class="text-2xl mb-1">⏱️</div>
+                        <h3 class="font-bold text-sm text-slate-800">Hẹn giờ chụp</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Tự động đếm ngược 3s/5s</p>
+                    </div>
+                    <div class="bg-white/90 backdrop-blur p-3.5 rounded-2xl border border-rose-100 shadow-sm text-center">
+                        <div class="text-2xl mb-1">🌻</div>
+                        <h3 class="font-bold text-sm text-slate-800">Sticker 20/11</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Kho nhãn dán dễ thương</p>
+                    </div>
+                    <div class="bg-white/90 backdrop-blur p-3.5 rounded-2xl border border-rose-100 shadow-sm text-center">
+                        <div class="text-2xl mb-1">🌐</div>
+                        <h3 class="font-bold text-sm text-slate-800">Bảng Vàng MXH</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Lưu trữ ảnh đã chụp</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột phải: Thẻ minh họa trực quan khung Photobook -->
+            <div class="w-full max-w-md lg:w-5/12">
+                <div class="relative bg-white/95 backdrop-blur p-4 pb-8 rounded-3xl shadow-2xl border border-rose-100 transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                    <div class="w-28 h-6 bg-gradient-to-r from-rose-300 to-amber-300 mx-auto -mt-7 mb-3 rounded-sm transform -rotate-2 shadow-sm"></div>
+                    <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-amber-50 via-rose-50 to-indigo-50 flex flex-col items-center justify-center p-6 text-center relative overflow-hidden border border-rose-100">
+                        <span class="text-6xl mb-3">👩‍🏫💐</span>
+                        <p class="font-handwriting text-2xl text-rose-700 font-bold">"Tri ân Thầy Cô - AIC Dam Ha"</p>
+                        <span class="mt-2 px-3 py-1 bg-white/90 rounded-full text-xs font-semibold text-rose-800 shadow-sm">20 / 11 / 2026</span>
+                        <span class="absolute top-3 right-3 text-3xl transform rotate-12">🌻</span>
+                        <span class="absolute bottom-3 left-3 text-3xl transform -rotate-12">💖</span>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between px-2">
+                        <span class="font-handwriting text-xl text-slate-600">#AICDamHa #TriAn2011</span>
+                        <span class="text-xs font-bold text-rose-500">● LIVE STUDIO</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- BẢNG VÀNG MXH: HIỂN THỊ ẢNH CÁC THÀNH VIÊN ĐÃ CHỤP -->
+        <section class="w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 border-t border-rose-200/50">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h3 class="font-extrabold text-base sm:text-lg text-slate-900 flex items-center gap-2">
+                        <span>🌟</span>
+                        <span>Bảng Vàng Tri Ân - Khoảnh Khắc CLB AI</span>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-600">Những bức ảnh Photobook bạn đã chụp và lưu lại trên thiết bị này!</p>
+                </div>
+                <button onclick="loadCommunityFeed()" class="px-3 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-rose-600 text-xs font-bold border border-rose-200 shadow-sm cursor-pointer transition-colors flex items-center gap-1">
+                    <span>🔄</span> Làm mới
+                </button>
+            </div>
+            
+            <div id="community-feed-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <div class="col-span-full py-8 text-center text-slate-400 text-sm bg-white/50 rounded-2xl border border-dashed border-rose-200">
+                    Chưa có bức ảnh nào. Hãy mở App chụp Photobook để thêm kỷ niệm nhé! ✨
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="w-full text-center py-6 text-xs text-slate-500 border-t border-rose-100">
+            <p>Made with ❤️ by <strong>Luu Trong</strong> & <strong>AIC Dam Ha High School</strong> © 2026</p>
+        </footer>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- PHẦN 2: GIAO DIỆN PHOTOBOOK STUDIO (POPUP FULL-SCREEN)               -->
+    <!-- ===================================================================== -->
+    <section id="studio-section" class="app-modal app-modal-closed fixed inset-0 z-40 bg-gradient-to-br from-rose-50 via-amber-50 to-slate-100 overflow-y-auto flex-col">
+        <div class="max-w-6xl w-full mx-auto px-3 sm:px-6 py-3 sm:py-4 flex-1 flex flex-col">
+            
+            <!-- Header Studio -->
+            <div class="flex items-center justify-between bg-white/80 backdrop-blur px-4 py-3 rounded-2xl shadow-sm border border-rose-100 mb-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-900 overflow-hidden shrink-0 border border-emerald-500/40">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=300&auto=format&fit=crop" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h2 class="font-extrabold text-xs sm:text-sm text-slate-900">Photobook Studio 20/11 - AIC Đầm Hà</h2>
+                        <p class="text-[11px] text-rose-600 font-semibold">Chụp ảnh & Lưu bút trực tuyến</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <label class="px-3 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold cursor-pointer transition-colors flex items-center gap-1.5 shadow-sm">
+                        <span>📁</span>
+                        <span class="hidden sm:inline">Chọn ảnh</span>
+                        <input type="file" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                    </label>
+                    <button onclick="backToIntro()" class="px-3.5 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold cursor-pointer transition-colors flex items-center gap-1">
+                        <span>✕</span> Đóng App
+                    </button>
+                </div>
+            </div>
+
+            <!-- Giao diện chính Studio (2 cột trên Desktop, 1 cột trên Mobile) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-start">
+                
+                <!-- CỘT TRÁI (7 phần): KHUNG PREVIEW CAMERA / PHOTOBOOK -->
+                <div class="lg:col-span-7 flex flex-col items-center w-full px-1">
+                    <div id="polaroid-frame" class="relative w-full max-w-lg bg-white text-slate-800 p-4 sm:p-5 pb-7 rounded-3xl shadow-xl border-2 border-rose-100 transition-colors duration-200">
+                        
+                        <!-- Sticker trang trí viền dễ thương -->
+                        <div class="absolute -top-3 left-4 bg-white text-slate-800 px-2.5 py-0.5 rounded-full shadow-md border border-rose-200 text-xs sm:text-sm font-semibold transform -rotate-6 select-none z-10">🌻 20/11</div>
+                        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-white text-slate-800 px-2.5 py-0.5 rounded-full shadow-md border border-rose-200 text-xs sm:text-sm font-semibold transform rotate-2 select-none z-10">💖 Tri ân</div>
+                        <div class="absolute -top-3 right-4 bg-white text-slate-800 px-2.5 py-0.5 rounded-full shadow-md border border-rose-200 text-xs sm:text-sm font-semibold transform rotate-6 select-none z-10">🎓 Thầy cô</div>
+                        
+                        <div class="absolute top-1/3 -left-2.5 bg-white text-slate-800 px-2 py-0.5 rounded-xl shadow-md border border-rose-200 text-[11px] sm:text-xs font-bold transform -rotate-6 select-none z-10">⭐ AIC</div>
+                        <div class="absolute top-2/3 -right-2.5 bg-white text-slate-800 px-2 py-0.5 rounded-xl shadow-md border border-rose-200 text-[11px] sm:text-xs font-bold transform rotate-6 select-none z-10">🌷 Đầm Hà</div>
+
+                        <div class="absolute -bottom-3 left-4 bg-white text-slate-800 px-2.5 py-0.5 rounded-full shadow-md border border-rose-200 text-xs sm:text-sm font-semibold transform rotate-3 select-none z-10">🌸 Thanh xuân</div>
+                        <div class="absolute -bottom-3 right-4 bg-white text-slate-800 px-2.5 py-0.5 rounded-full shadow-md border border-rose-200 text-xs sm:text-sm font-semibold transform -rotate-3 select-none z-10">🍎 Tri thức</div>
+
+                        <!-- Vùng hiển thị chính (Tỷ lệ 4:3) -->
+                        <div id="viewport-container" class="relative w-full aspect-[4/3] bg-slate-900 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center">
+                            <video id="camera-video" autoplay playsinline muted class="w-full h-full object-cover transition-all duration-200"></video>
+                            <canvas id="editor-canvas" class="hidden w-full h-full object-contain touch-none cursor-move"></canvas>
+
+                            <div id="camera-error" class="hidden absolute inset-0 bg-slate-800 text-white p-6 flex flex-col items-center justify-center text-center">
+                                <span class="text-4xl mb-2">🚫📷</span>
+                                <p class="font-bold text-base mb-1">Không thể truy cập Camera</p>
+                                <p class="text-xs text-slate-300 mb-4">Vui lòng cấp quyền Camera trên trình duyệt hoặc dùng nút "Chọn ảnh" ở góc trên!</p>
+                                <button onclick="startCamera()" class="px-4 py-2 rounded-xl bg-rose-500 text-white text-xs font-bold cursor-pointer">Thử mở lại Camera</button>
+                            </div>
+
+                            <div id="countdown-overlay" class="hidden absolute inset-0 bg-black/50 flex items-center justify-center z-20">
+                                <span id="countdown-number" class="text-8xl font-extrabold text-white drop-shadow-lg countdown-pulse">3</span>
+                            </div>
+
+                            <div id="flash-overlay" class="hidden absolute inset-0 bg-white z-30 pointer-events-none"></div>
+
+                            <div id="mode-badge" class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 text-white text-xs font-semibold flex items-center gap-1.5 z-10">
+                                <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+                                <span>LIVE PREVIEW</span>
+                            </div>
+                        </div>
+
+                        <!-- Dòng chú thích dưới khung Polaroid -->
+                        <div class="mt-3 px-2 flex flex-col sm:flex-row items-center justify-between gap-2">
+                            <input id="caption-input" type="text" value="Cảm ơn Thầy Cô đã chắp cánh ước mơ! 🌻" maxlength="50"
+                                class="font-handwriting text-xl sm:text-2xl bg-transparent border-b border-dashed border-current/30 focus:border-rose-500 focus:outline-none w-full py-0.5"
+                                placeholder="Nhập lời chúc tri ân...">
+                            <div class="flex items-center gap-2 w-full sm:w-auto">
+                                <input id="author-input" type="text" value="Thành viên AIC" maxlength="20"
+                                    class="text-xs bg-white/70 px-2 py-1 rounded-lg border border-slate-200 focus:outline-none focus:border-rose-500 w-28 text-center font-semibold"
+                                    placeholder="Tên bạn...">
+                                <span id="frame-tag" class="text-xs font-bold text-rose-600 whitespace-nowrap">20/11</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thanh điều khiển Camera -->
+                    <div id="camera-controls" class="w-full max-w-lg mt-4 bg-white/90 backdrop-blur p-3.5 rounded-2xl shadow-md border border-rose-100 flex items-center justify-between gap-3">
+                        <button onclick="cycleTimer()" id="timer-btn" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-700 text-xs font-bold border border-slate-200 transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+                            <span>⏱️</span>
+                            <span id="timer-label">Hẹn giờ: Tắt</span>
+                        </button>
+
+                        <button onclick="triggerCapture()" class="w-16 h-16 rounded-full bg-gradient-to-tr from-rose-500 via-pink-500 to-amber-500 p-1 shadow-lg shadow-rose-500/30 transform active:scale-95 transition-transform flex items-center justify-center cursor-pointer shrink-0">
+                            <div class="w-full h-full rounded-full bg-white flex items-center justify-center text-rose-600 text-2xl">
+                                📸
+                            </div>
+                        </button>
+
+                        <button onclick="switchCamera()" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-700 text-xs font-bold border border-slate-200 transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+                            <span>🔄</span>
+                            <span>Đảo Cam</span>
+                        </button>
+                    </div>
+
+                    <!-- Thanh điều khiển Sau Khi Chụp -->
+                    <div id="editor-controls" class="hidden w-full max-w-lg mt-4 bg-white/90 backdrop-blur p-3.5 rounded-2xl shadow-md border border-rose-100 flex items-center gap-3">
+                        <button onclick="retakePhoto()" class="flex-1 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm">
+                            <span>📷</span>
+                            <span>Chụp lại</span>
+                        </button>
+                        <button onclick="downloadPhotobook()" class="flex-[2] py-3 px-5 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:opacity-95 text-white text-xs font-bold shadow-lg shadow-rose-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                            <span>✨</span>
+                            <span>Lưu ảnh Photobook về máy</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CỘT PHẢI (5 phần): BẢNG CHỌN MÀU, KHUNG & STICKER -->
+                <div class="lg:col-span-5 flex flex-col space-y-4 w-full">
+                    
+                    <!-- 1. Bảng chọn Khung hình -->
+                    <div class="bg-white/90 backdrop-blur p-4 rounded-2xl shadow-sm border border-rose-100">
+                        <h3 class="font-bold text-sm text-slate-800 flex items-center gap-1.5 mb-3">
+                            <span>🖼️</span>
+                            <span>Chọn kiểu khung Photobook</span>
+                        </h3>
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="setFrameStyle('classic', this)" class="frame-btn p-2 rounded-xl bg-rose-50 ring-2 ring-rose-500 text-center cursor-pointer transition-all flex flex-col items-center gap-1">
+                                <div class="w-full aspect-[4/3] bg-white rounded border border-slate-300 shadow-sm"></div>
+                                <span class="text-[11px] font-bold text-slate-700">Trắng Gốc</span>
+                            </button>
+                            <button onclick="setFrameStyle('sunflower', this)" class="frame-btn p-2 rounded-xl bg-slate-50 hover:bg-amber-50 text-center cursor-pointer transition-all flex flex-col items-center gap-1">
+                                <div class="w-full aspect-[4/3] bg-amber-50 rounded border border-amber-400 shadow-sm"></div>
+                                <span class="text-[11px] font-bold text-amber-900">Vàng Tri Ân</span>
+                            </button>
+                            <button onclick="setFrameStyle('chalkboard', this)" class="frame-btn p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 text-center cursor-pointer transition-all flex flex-col items-center gap-1">
+                                <div class="w-full aspect-[4/3] bg-emerald-950 rounded border border-amber-600 shadow-sm"></div>
+                                <span class="text-[11px] font-bold text-emerald-900">Bảng Đen</span>
+                            </button>
+                            <button onclick="setFrameStyle('pastel', this)" class="frame-btn p-2 rounded-xl bg-slate-50 hover:bg-rose-50 text-center cursor-pointer transition-all flex flex-col items-center gap-1">
+                                <div class="w-full aspect-[4/3] bg-rose-100 rounded border border-rose-300 shadow-sm"></div>
+                                <span class="text-[11px] font-bold text-rose-900">Hồng Pastel</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Bảng chọn Bộ lọc màu -->
+                    <div class="bg-white/90 backdrop-blur p-4 rounded-2xl shadow-sm border border-rose-100">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-bold text-sm text-slate-800 flex items-center gap-1.5">
+                                <span>🎨</span>
+                                <span>Bộ lọc màu hoài niệm</span>
+                            </h3>
+                            <span id="active-filter-name" class="text-xs font-semibold text-rose-600">Gốc</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setFilter('none', 'Gốc', this)" class="filter-btn py-2 px-2.5 rounded-xl bg-rose-50 ring-2 ring-rose-500 text-xs font-bold text-slate-700 cursor-pointer">Gốc</button>
+                            <button onclick="setFilter('brightness(1.06) saturate(1.15) contrast(1.03)', 'Tự nhiên', this)" class="filter-btn py-2 px-2.5 rounded-xl bg-slate-50 hover:bg-rose-50 text-xs font-bold text-slate-700 cursor-pointer">Tự nhiên</button>
+                            <button onclick="setFilter('sepia(0.35) contrast(0.95) brightness(1.05)', 'Vintage', this)" class="filter-btn py-2 px-2.5 rounded-xl bg-slate-50 hover:bg-rose-50 text-xs font-bold text-slate-700 cursor-pointer">Vintage</button>
+                            <button onclick="setFilter('sepia(0.2) saturate(1.3) hue-rotate(-10deg)', 'Nắng Ấm', this)" class="filter-btn py-2 px-2.5 rounded-xl bg-slate-50 hover:bg-rose-50 text-xs font-bold text-slate-700 cursor-pointer">Nắng Ấm</button>
+                            <button onclick="setFilter('grayscale(100%) contrast(1.2)', 'Trắng Đen', this)" class="filter-btn py-2 px-2.5 rounded-xl bg-slate-50 hover:bg-rose-50 text-xs font-bold text-slate-700 cursor-pointer">Trắng Đen</button>
+                            <button onclick="setFilter('contrast(1.1) brightness(1.08) saturate(0.85)', 'Mộng Mơ', this)" class="filter-btn py-2 px-2.5 rounded-xl bg-slate-50 hover:bg-rose-50 text-xs font-bold text-slate-700 cursor-pointer">Mộng Mơ</button>
+                        </div>
+                    </div>
+
+                    <!-- 3. Kho Sticker 20/11 dễ thương -->
+                    <div class="bg-white/90 backdrop-blur p-4 rounded-2xl shadow-sm border border-rose-100">
+                        <h3 class="font-bold text-sm text-slate-800 flex items-center gap-1.5 mb-2">
+                            <span>🌻</span>
+                            <span>Kho Sticker Tri Ân 20/11</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mb-3">Chạm vào sticker để dán lên ảnh, kéo thả hoặc dùng thanh công cụ để chỉnh kích thước!</p>
+                        
+                        <div id="sticker-grid" class="grid grid-cols-4 gap-2 max-h-40 overflow-y-auto pr-1">
+                            <!-- Được render động bằng JavaScript -->
+                        </div>
+
+                        <!-- Công cụ tinh chỉnh sticker đang chọn -->
+                        <div id="sticker-tools" class="hidden mt-3 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-1">
+                                <button onclick="scaleSelectedSticker(10)" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-xs font-bold cursor-pointer">➕ Lớn</button>
+                                <button onclick="scaleSelectedSticker(-10)" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-xs font-bold cursor-pointer">➖ Nhỏ</button>
+                                <button onclick="rotateSelectedSticker(15)" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 text-xs font-bold cursor-pointer">🔄 Xoay</button>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <button onclick="deleteSelectedSticker()" class="px-2.5 py-1.5 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold cursor-pointer">🗑️ Xóa</button>
+                                <button onclick="clearAllStickers()" class="px-2.5 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold cursor-pointer">🧹 Xóa hết</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Xem Trước & Tải Ảnh (Hỗ trợ chống chặn download trên Messenger/Zalo/iOS) -->
+    <div id="save-preview-modal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-5 shadow-2xl flex flex-col items-center text-center">
+            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-2">🎉</div>
+            <h3 class="font-extrabold text-lg text-slate-900 mb-1">Photobook đã sẵn sàng!</h3>
+            <p class="text-xs text-slate-600 mb-4">Nếu điện thoại không tự tải xuống, bạn chỉ cần <strong>nhấn giữ vào bức ảnh bên dưới</strong> rồi chọn <em>"Lưu vào ảnh"</em> nhé!</p>
+            
+            <div class="w-full aspect-[4/3] bg-slate-100 rounded-2xl overflow-hidden shadow-inner mb-4 border border-rose-100">
+                <img id="exported-preview-img" src="" alt="Exported Photobook" class="w-full h-full object-contain">
+            </div>
+
+            <div class="flex items-center gap-3 w-full">
+                <a id="manual-download-link" href="#" download="Photobook-20-11.png" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 text-white font-bold text-xs shadow-md shadow-rose-500/20 flex items-center justify-center gap-1.5 cursor-pointer">
+                    <span>📥</span> Tải lại về máy
+                </a>
+                <button onclick="closeSaveModal()" class="flex-1 py-3 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
+                    Đóng lại
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast thông báo nhanh -->
+    <div id="toast-box" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900/95 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs font-bold transform translate-y-20 opacity-0 transition-all duration-300 border border-slate-700">
+        <span id="toast-icon" class="text-base">✨</span>
+        <span id="toast-msg">Thông báo</span>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MÃ NGUỒN JAVASCRIPT XỬ LÝ LOCALSTORAGE & GIAO DIỆN                    -->
+    <!-- ===================================================================== -->
+    <script>
+        let currentStream = null;
+        let facingMode = 'user';
+        let timerSeconds = 0;
+        let isCountingDown = false;
+        let currentFilter = 'none';
+        let currentFrame = 'classic';
+        let isCapturedMode = false;
+        let capturedBaseImage = null;
+        let lastExportUrl = null;
+
+        const FRAME_THEMES = {
+            classic:    { bg: '#ffffff', border: '#fef3c7', text: '#334155', tag: '#d97706', twBg: 'bg-white', twText: 'text-slate-800', twBorder: 'border-rose-100' },
+            sunflower:  { bg: '#fef9c3', border: '#f59e0b', text: '#78350f', tag: '#b45309', twBg: 'bg-amber-50', twText: 'text-amber-950', twBorder: 'border-amber-400' },
+            chalkboard: { bg: '#064e3b', border: '#d97706', text: '#f8fafc', tag: '#fbbf24', twBg: 'bg-emerald-950', twText: 'text-white', twBorder: 'border-amber-600' },
+            pastel:     { bg: '#ffe4e6', border: '#fda4af', text: '#881337', tag: '#e11d48', twBg: 'bg-rose-50', twText: 'text-rose-950', twBorder: 'border-rose-300' }
+        };
+
+        // Kho sticker thanh lịch, dễ thương và ý nghĩa tri ân 20/11
+        const STICKER_LIST = [
+            { type: 'emoji', content: '🌻', label: 'Hoa hướng dương' },
+            { type: 'emoji', content: '🌹', label: 'Hoa hồng' },
+            { type: 'emoji', content: '💐', label: 'Bó hoa' },
+            { type: 'emoji', content: '⭐', label: 'Ngôi sao' },
+            { type: 'emoji', content: '💖', label: 'Trái tim' },
+            { type: 'emoji', content: '🍎', label: 'Quả táo tri ân' },
+            { type: 'emoji', content: '🎓', label: 'Tốt nghiệp' },
+            { type: 'emoji', content: '📚', label: 'Sách vở' },
+            { type: 'badge', content: '20/11 🌻', bg: '#f59e0b', color: '#ffffff' },
+            { type: 'badge', content: 'Tri Ân Thầy Cô ❤️', bg: '#f43f5e', color: '#ffffff' },
+            { type: 'badge', content: 'AIC Đầm Hà 🤖', bg: '#6366f1', color: '#ffffff' },
+            { type: 'badge', content: 'Thanh xuân ✨', bg: '#ec4899', color: '#ffffff' }
+        ];
+
+        let placedStickers = [];
+        let selectedStickerIndex = -1;
+        let isDragging = false;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+
+        const videoEl = document.getElementById('camera-video');
+        const canvasEl = document.getElementById('editor-canvas');
+        const ctx = canvasEl.getContext('2d');
+
+        function initStickerGrid() {
+            const grid = document.getElementById('sticker-grid');
+            grid.innerHTML = '';
+            STICKER_LIST.forEach((item) => {
+                const btn = document.createElement('button');
+                btn.className = 'p-2 rounded-xl bg-white hover:bg-rose-50 border border-rose-100 flex items-center justify-center transition-transform active:scale-90 cursor-pointer h-12 shadow-sm';
+                if (item.type === 'emoji') {
+                    btn.innerHTML = `<span class="text-2xl">${item.content}</span>`;
+                } else {
+                    btn.innerHTML = `<span class="px-2 py-0.5 rounded-full text-[11px] font-bold shadow-sm whitespace-nowrap" style="background:${item.bg}; color:${item.color}">${item.content}</span>`;
+                }
+                btn.onclick = () => addStickerToCanvas(item);
+                grid.appendChild(btn);
+            });
+        }
+
+        // Tải danh sách ảnh từ LocalStorage hiển thị lên bảng vàng
+        function loadCommunityFeed() {
+            const grid = document.getElementById('community-feed-grid');
+            try {
+                const savedPosts = JSON.parse(localStorage.getItem('aic_photobook_posts') || '[]');
+                
+                if (savedPosts.length === 0) {
+                    grid.innerHTML = `<div class="col-span-full py-8 text-center text-slate-500 text-sm bg-white/50 rounded-2xl border border-dashed border-rose-200">Chưa có bức ảnh nào trên bảng vàng thiết bị này. Hãy mở App chụp Photobook và lưu lại nhé! ✨</div>`;
+                    return;
+                }
+
+                grid.innerHTML = '';
+                savedPosts.slice(0, 8).forEach(post => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-3 rounded-2xl shadow-sm border border-rose-100 flex flex-col gap-2 hover:shadow-md transition-shadow';
+                    card.innerHTML = `
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 relative group">
+                            <img src="${post.imageUrl}" alt="Photobook" class="w-full h-full object-cover">
+                        </div>
+                        <div class="text-xs">
+                            <p class="font-bold text-slate-800 truncate">"${post.caption}"</p>
+                            <p class="text-rose-600 font-semibold mt-0.5">👤 ${post.author || 'Thành viên AIC'}</p>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (err) {
+                console.error("Error loading feed:", err);
+                grid.innerHTML = `<div class="col-span-full py-6 text-center text-rose-500 text-xs">Không thể tải bảng vàng.</div>`;
+            }
+        }
+
+        function saveToLocalFeed(imageUrl, caption, author) {
+            try {
+                const savedPosts = JSON.parse(localStorage.getItem('aic_photobook_posts') || '[]');
+                savedPosts.unshift({
+                    imageUrl: imageUrl,
+                    caption: caption,
+                    author: author,
+                    timestamp: Date.now()
+                });
+                // Giữ tối đa 20 ảnh gần nhất
+                if (savedPosts.length > 20) savedPosts.pop();
+                localStorage.setItem('aic_photobook_posts', JSON.stringify(savedPosts));
+                loadCommunityFeed();
+            } catch (err) {
+                console.error("Error saving local feed:", err);
+            }
+        }
+
+        function enterStudio() {
+            const modal = document.getElementById('studio-section');
+            modal.classList.remove('app-modal-closed');
+            modal.classList.add('app-modal-open');
+            document.body.style.overflow = 'hidden';
+            startCamera();
+        }
+
+        function backToIntro() {
+            stopCamera();
+            const modal = document.getElementById('studio-section');
+            modal.classList.remove('app-modal-open');
+            modal.classList.add('app-modal-closed');
+            document.body.style.overflow = '';
+            loadCommunityFeed();
+        }
+
+        async function startCamera() {
+            stopCamera();
+            document.getElementById('camera-error').classList.add('hidden');
+            
+            try {
+                const constraints = {
+                    video: { facingMode: facingMode, width: { ideal: 1280 }, height: { ideal: 960 } },
+                    audio: false
+                };
+                currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+                videoEl.srcObject = currentStream;
+                videoEl.style.transform = facingMode === 'user' ? 'scaleX(-1)' : 'scaleX(1)';
+            } catch (err) {
+                console.error(err);
+                document.getElementById('camera-error').classList.remove('hidden');
+            }
+        }
+
+        function stopCamera() {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+            }
+        }
+
+        function switchCamera() {
+            facingMode = facingMode === 'user' ? 'environment' : 'user';
+            startCamera();
+            showToast(facingMode === 'user' ? 'Đã chuyển sang Camera trước' : 'Đã chuyển sang Camera sau', '🔄');
+        }
+
+        function setFrameStyle(frameKey, btnElement) {
+            currentFrame = frameKey;
+            const theme = FRAME_THEMES[frameKey];
+            const frameEl = document.getElementById('polaroid-frame');
+            const tagEl = document.getElementById('frame-tag');
+
+            frameEl.className = `relative w-full max-w-lg ${theme.twBg} ${theme.twText} p-4 sm:p-5 pb-7 rounded-3xl shadow-xl border-2 ${theme.twBorder} transition-colors duration-200`;
+            tagEl.style.color = theme.tag;
+
+            document.querySelectorAll('.frame-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-rose-500', 'bg-rose-50');
+                btn.classList.add('bg-slate-50');
+            });
+            if (btnElement) {
+                btnElement.classList.remove('bg-slate-50');
+                btnElement.classList.add('ring-2', 'ring-rose-500', 'bg-rose-50');
+            }
+        }
+
+        function setFilter(filterCss, labelName, btnElement) {
+            currentFilter = filterCss;
+            document.getElementById('active-filter-name').textContent = labelName;
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-rose-500', 'bg-rose-50');
+                btn.classList.add('bg-slate-50');
+            });
+            if (btnElement) {
+                btnElement.classList.remove('bg-slate-50');
+                btnElement.classList.add('ring-2', 'ring-rose-500', 'bg-rose-50');
+            }
+
+            videoEl.style.filter = currentFilter;
+            if (isCapturedMode) renderCanvas();
+        }
+
+        function cycleTimer() {
+            if (timerSeconds === 0) timerSeconds = 3;
+            else if (timerSeconds === 3) timerSeconds = 5;
+            else timerSeconds = 0;
+
+            document.getElementById('timer-label').textContent = timerSeconds === 0 ? 'Hẹn giờ: Tắt' : `Hẹn giờ: ${timerSeconds}s`;
+            showToast(timerSeconds === 0 ? 'Đã tắt hẹn giờ' : `Đếm ngược ${timerSeconds}s trước khi chụp`, '⏱️');
+        }
+
+        function triggerCapture() {
+            if (isCountingDown) return;
+
+            if (timerSeconds === 0) {
+                capturePhotoNow();
+            } else {
+                isCountingDown = true;
+                let count = timerSeconds;
+                const overlay = document.getElementById('countdown-overlay');
+                const numEl = document.getElementById('countdown-number');
+                
+                overlay.classList.remove('hidden');
+                numEl.textContent = count;
+
+                const interval = setInterval(() => {
+                    count--;
+                    if (count > 0) {
+                        numEl.textContent = count;
+                    } else {
+                        clearInterval(interval);
+                        overlay.classList.add('hidden');
+                        isCountingDown = false;
+                        capturePhotoNow();
+                    }
+                }, 1000);
+            }
+        }
+
+        function capturePhotoNow() {
+            if (!currentStream) {
+                showToast('Camera chưa sẵn sàng, hãy chọn ảnh có sẵn!', '⚠️');
+                return;
+            }
+
+            const flash = document.getElementById('flash-overlay');
+            flash.classList.remove('hidden');
+            flash.classList.add('flash-effect');
+            setTimeout(() => {
+                flash.classList.add('hidden');
+                flash.classList.remove('flash-effect');
+            }, 450);
+
+            const tempCanvas = document.createElement('canvas');
+            const vWidth = videoEl.videoWidth || 800;
+            const vHeight = videoEl.videoHeight || 600;
+            tempCanvas.width = vWidth;
+            tempCanvas.height = vHeight;
+            const tempCtx = tempCanvas.getContext('2d');
+
+            if (facingMode === 'user') {
+                tempCtx.translate(vWidth, 0);
+                tempCtx.scale(-1, 1);
+            }
+            tempCtx.drawImage(videoEl, 0, 0, vWidth, vHeight);
+
+            const img = new Image();
+            img.onload = () => {
+                capturedBaseImage = img;
+                enterEditorMode();
+            };
+            img.src = tempCanvas.toDataURL('image/png');
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    capturedBaseImage = img;
+                    enterEditorMode();
+                    showToast('Đã tải ảnh lên thành công!', '🖼️');
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function enterEditorMode() {
+            isCapturedMode = true;
+            stopCamera();
+
+            videoEl.classList.add('hidden');
+            canvasEl.classList.remove('hidden');
+
+            document.getElementById('editor-controls').classList.remove('hidden');
+            document.getElementById('camera-controls').classList.add('hidden');
+            document.getElementById('mode-badge').innerHTML = `<span>✨ CHẾ ĐỘ TRANG TRÍ</span>`;
+
+            canvasEl.width = 1200;
+            canvasEl.height = 900;
+            renderCanvas();
+        }
+
+        function retakePhoto() {
+            isCapturedMode = false;
+            capturedBaseImage = null;
+            placedStickers = [];
+            selectedStickerIndex = -1;
+            document.getElementById('sticker-tools').classList.add('hidden');
+
+            canvasEl.classList.add('hidden');
+            videoEl.classList.remove('hidden');
+
+            document.getElementById('editor-controls').classList.add('hidden');
+            document.getElementById('camera-controls').classList.remove('hidden');
+            document.getElementById('mode-badge').innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span><span>LIVE PREVIEW</span>`;
+
+            startCamera();
+        }
+
+        function renderCanvas() {
+            if (!capturedBaseImage) return;
+
+            const W = canvasEl.width;
+            const H = canvasEl.height;
+            ctx.clearRect(0, 0, W, H);
+
+            ctx.save();
+            ctx.filter = currentFilter;
+            
+            const imgRatio = capturedBaseImage.width / capturedBaseImage.height;
+            const canvasRatio = W / H;
+            let drawW, drawH, offsetX, offsetY;
+
+            if (imgRatio > canvasRatio) {
+                drawH = H;
+                drawW = H * imgRatio;
+                offsetX = (W - drawW) / 2;
+                offsetY = 0;
+            } else {
+                drawW = W;
+                drawH = W / imgRatio;
+                offsetX = 0;
+                offsetY = (H - drawH) / 2;
+            }
+            ctx.drawImage(capturedBaseImage, offsetX, offsetY, drawW, drawH);
+            ctx.restore();
+
+            placedStickers.forEach((st, index) => {
+                ctx.save();
+                ctx.translate(st.x, st.y);
+                ctx.rotate((st.angle * Math.PI) / 180);
+
+                if (st.type === 'emoji') {
+                    ctx.font = `${st.size}px sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(st.content, 0, 0);
+                } else if (st.type === 'badge') {
+                    const fontSize = Math.round(st.size * 0.36);
+                    ctx.font = `bold ${fontSize}px Inter, sans-serif`;
+                    const textMetrics = ctx.measureText(st.content);
+                    const padX = fontSize * 0.9;
+                    const padY = fontSize * 0.55;
+                    const boxW = textMetrics.width + padX * 2;
+                    const boxH = fontSize + padY * 2;
+
+                    ctx.fillStyle = st.bg;
+                    ctx.beginPath();
+                    ctx.roundRect(-boxW / 2, -boxH / 2, boxW, boxH, boxH / 2);
+                    ctx.fill();
+
+                    ctx.fillStyle = st.color;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(st.content, 0, 2);
+                }
+
+                if (index === selectedStickerIndex) {
+                    const bound = st.size * 0.65;
+                    ctx.strokeStyle = '#f43f5e';
+                    ctx.lineWidth = 4;
+                    ctx.setLineDash([10, 6]);
+                    ctx.strokeRect(-bound, -bound, bound * 2, bound * 2);
+                }
+
+                ctx.restore();
+            });
+        }
+
+        function addStickerToCanvas(item) {
+            if (!isCapturedMode) {
+                showToast('Hãy chụp ảnh hoặc chọn ảnh trước khi dán sticker!', '📸');
+                return;
+            }
+            const newSticker = {
+                ...item,
+                x: canvasEl.width / 2 + (Math.random() * 80 - 40),
+                y: canvasEl.height / 2 + (Math.random() * 80 - 40),
+                size: 130,
+                angle: 0
+            };
+            placedStickers.push(newSticker);
+            selectedStickerIndex = placedStickers.length - 1;
+            document.getElementById('sticker-tools').classList.remove('hidden');
+            renderCanvas();
+        }
+
+        function scaleSelectedSticker(delta) {
+            if (selectedStickerIndex < 0) return;
+            const st = placedStickers[selectedStickerIndex];
+            st.size = Math.max(50, Math.min(320, st.size + delta * 2));
+            renderCanvas();
+        }
+
+        function rotateSelectedSticker(deg) {
+            if (selectedStickerIndex < 0) return;
+            placedStickers[selectedStickerIndex].angle += deg;
+            renderCanvas();
+        }
+
+        function deleteSelectedSticker() {
+            if (selectedStickerIndex < 0) return;
+            placedStickers.splice(selectedStickerIndex, 1);
+            selectedStickerIndex = -1;
+            document.getElementById('sticker-tools').classList.add('hidden');
+            renderCanvas();
+        }
+
+        function clearAllStickers() {
+            placedStickers = [];
+            selectedStickerIndex = -1;
+            document.getElementById('sticker-tools').classList.add('hidden');
+            renderCanvas();
+            showToast('Đã xóa toàn bộ sticker', '🧹');
+        }
+
+        function getCanvasCoords(evt) {
+            const rect = canvasEl.getBoundingClientRect();
+            const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+            const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+            return {
+                x: ((clientX - rect.left) / rect.width) * canvasEl.width,
+                y: ((clientY - rect.top) / rect.height) * canvasEl.height
+            };
+        }
+
+        function handlePointerDown(evt) {
+            if (!isCapturedMode) return;
+            const pos = getCanvasCoords(evt);
+            
+            let found = -1;
+            for (let i = placedStickers.length - 1; i >= 0; i--) {
+                const st = placedStickers[i];
+                const dist = Math.hypot(pos.x - st.x, pos.y - st.y);
+                if (dist <= st.size * 0.7) {
+                    found = i;
+                    break;
+                }
+            }
+
+            selectedStickerIndex = found;
+            if (found !== -1) {
+                isDragging = true;
+                dragOffsetX = pos.x - placedStickers[found].x;
+                dragOffsetY = pos.y - placedStickers[found].y;
+                document.getElementById('sticker-tools').classList.remove('hidden');
+            } else {
+                document.getElementById('sticker-tools').classList.add('hidden');
+            }
+            renderCanvas();
+        }
+
+        function handlePointerMove(evt) {
+            if (!isDragging || selectedStickerIndex === -1) return;
+            evt.preventDefault();
+            const pos = getCanvasCoords(evt);
+            placedStickers[selectedStickerIndex].x = pos.x - dragOffsetX;
+            placedStickers[selectedStickerIndex].y = pos.y - dragOffsetY;
+            renderCanvas();
+        }
+
+        function handlePointerUp() {
+            isDragging = false;
+        }
+
+        canvasEl.addEventListener('mousedown', handlePointerDown);
+        canvasEl.addEventListener('mousemove', handlePointerMove);
+        window.addEventListener('mouseup', handlePointerUp);
+        canvasEl.addEventListener('touchstart', handlePointerDown, { passive: false });
+        canvasEl.addEventListener('touchmove', handlePointerMove, { passive: false });
+        window.addEventListener('touchend', handlePointerUp);
+
+        function drawExportStickerBadge(eCtx, text, x, y, angleDeg) {
+            eCtx.save();
+            eCtx.translate(x, y);
+            eCtx.rotate((angleDeg * Math.PI) / 180);
+            eCtx.font = 'bold 26px Inter, sans-serif';
+            const metrics = eCtx.measureText(text);
+            const boxW = metrics.width + 44;
+            const boxH = 48;
+
+            eCtx.fillStyle = '#ffffff';
+            eCtx.beginPath();
+            eCtx.roundRect(-boxW / 2, -boxH / 2, boxW, boxH, boxH / 2);
+            eCtx.fill();
+
+            eCtx.lineWidth = 3;
+            eCtx.strokeStyle = '#fbcfe8';
+            eCtx.stroke();
+
+            eCtx.fillStyle = '#1e293b';
+            eCtx.textAlign = 'center';
+            eCtx.textBaseline = 'middle';
+            eCtx.fillText(text, 0, 2);
+            eCtx.restore();
+        }
+
+        function downloadPhotobook() {
+            if (!capturedBaseImage) return;
+
+            const prevSelected = selectedStickerIndex;
+            selectedStickerIndex = -1;
+            renderCanvas();
+
+            const theme = FRAME_THEMES[currentFrame] || FRAME_THEMES.classic;
+            const exportCanvas = document.createElement('canvas');
+            
+            const totalW = 1200;
+            const totalH = 1100;
+            exportCanvas.width = totalW;
+            exportCanvas.height = totalH;
+            const eCtx = exportCanvas.getContext('2d');
+
+            eCtx.fillStyle = '#fff1f2';
+            eCtx.fillRect(0, 0, totalW, totalH);
+
+            eCtx.fillStyle = theme.bg;
+            eCtx.beginPath();
+            eCtx.roundRect(45, 45, totalW - 90, totalH - 90, 48);
+            eCtx.fill();
+
+            eCtx.strokeStyle = theme.border;
+            eCtx.lineWidth = 10;
+            eCtx.beginPath();
+            eCtx.roundRect(45, 45, totalW - 90, totalH - 90, 48);
+            eCtx.stroke();
+
+            const photoX = 100;
+            const photoY = 140;
+            const photoW = totalW - 200;
+            const photoH = 720;
+
+            eCtx.save();
+            eCtx.beginPath();
+            eCtx.roundRect(photoX, photoY, photoW, photoH, 24);
+            eCtx.clip();
+            eCtx.drawImage(canvasEl, 0, 0, canvasEl.width, canvasEl.height, photoX, photoY, photoW, photoH);
+            eCtx.restore();
+
+            eCtx.strokeStyle = 'rgba(0,0,0,0.08)';
+            eCtx.lineWidth = 4;
+            eCtx.beginPath();
+            eCtx.roundRect(photoX, photoY, photoW, photoH, 24);
+            eCtx.stroke();
+
+            drawExportStickerBadge(eCtx, '🌻 20/11', 150, 60, -6);
+            drawExportStickerBadge(eCtx, '💖 Tri ân', totalW / 2, 55, 2);
+            drawExportStickerBadge(eCtx, '🎓 Thầy cô', totalW - 155, 60, 6);
+            drawExportStickerBadge(eCtx, '⭐ AIC', 85, 420, -6);
+            drawExportStickerBadge(eCtx, '🌷 Đầm Hà', totalW - 95, 660, 6);
+
+            const captionText = document.getElementById('caption-input').value || 'Cảm ơn Thầy Cô đã chắp cánh ước mơ! 🌻';
+            const authorName = document.getElementById('author-input').value || 'Thành viên AIC';
+
+            eCtx.fillStyle = theme.text;
+            eCtx.font = 'bold 40px "Patrick Hand", cursive, sans-serif';
+            eCtx.textAlign = 'left';
+            eCtx.textBaseline = 'alphabetic';
+            eCtx.fillText(captionText, 110, totalH - 110);
+
+            eCtx.fillStyle = '#64748b';
+            eCtx.font = '24px Inter, sans-serif';
+            eCtx.fillText(`— By ${authorName}`, 110, totalH - 65);
+
+            eCtx.fillStyle = theme.tag;
+            eCtx.font = 'bold 30px Inter, sans-serif';
+            eCtx.textAlign = 'right';
+            eCtx.fillText('20/11', totalW - 110, totalH - 95);
+
+            const fileName = `Photobook-TriAn-20-11-AICDamHa-${Date.now()}.png`;
+            const dataUrl = exportCanvas.toDataURL('image/png');
+
+            // Lưu trực tiếp vào LocalStorage bảng vàng
+            saveToLocalFeed(dataUrl, captionText, authorName);
+
+            document.getElementById('exported-preview-img').src = dataUrl;
+            const manualLink = document.getElementById('manual-download-link');
+            manualLink.href = dataUrl;
+            manualLink.download = fileName;
+            document.getElementById('save-preview-modal').classList.remove('hidden');
+
+            exportCanvas.toBlob((blob) => {
+                if (!blob) return;
+                if (lastExportUrl) URL.revokeObjectURL(lastExportUrl);
+                lastExportUrl = URL.createObjectURL(blob);
+                manualLink.href = lastExportUrl;
+
+                const link = document.createElement('a');
+                link.download = fileName;
+                link.href = lastExportUrl;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, 'image/png');
+
+            selectedStickerIndex = prevSelected;
+            renderCanvas();
+            showToast('Đã lưu ảnh và đưa lên bảng vàng thành công! 🌟', '📸');
+        }
+
+        function closeSaveModal() {
+            document.getElementById('save-preview-modal').classList.add('hidden');
+        }
+
+        let toastTimeout;
+        function showToast(msg, icon = '✨') {
+            const box = document.getElementById('toast-box');
+            document.getElementById('toast-msg').textContent = msg;
+            document.getElementById('toast-icon').textContent = icon;
+            
+            box.classList.remove('translate-y-20', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                box.classList.add('translate-y-20', 'opacity-0');
+            }, 2800);
+        }
+
+        window.onload = () => {
+            initStickerGrid();
+            loadCommunityFeed();
+        };
+    </script>
+</body>
+</html>
